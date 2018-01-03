@@ -1,3 +1,4 @@
+# coding=gbk
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
@@ -8,6 +9,7 @@ from src.back_end.downloadFile_contr import downloadFile
 
 import os
 
+import codecs
 # Create your views here.
 def index(request,index):
     index=int(index)
@@ -19,12 +21,18 @@ def index(request,index):
         return render(request, "src/view/forms.html")
     if index==3:
         file_list = os.listdir('data_files')
-        return render(request, 'src/view/panels.html', {'data': file_list})
+        filelist = []
+        for file in file_list:
+            filelist.append(file.decode('gbk'))
+        return render(request, 'src/view/panels.html', {'data': filelist})
     if index==4:
         file_list = os.listdir('data_files')
-        return render(request,'src/view/tables.html',{'data': file_list})
+        filelist = []
+        for file in file_list:
+            filelist.append(file.decode('gbk'))
+        return render(request, 'src/view/tables.html', {'data': filelist})
     if index==5:
-        return render((request,'src/view/login.html'))
+        return render(request,'src/view/charts.html')
 
 
 @csrf_exempt
@@ -39,14 +47,13 @@ def upload(request):
 @require_http_methods({'GET'})
 def show_file(request):
     file_list=os.listdir('data_files')
-    filelist={}
-    i=0
 
+    filelist=[]
     for file in file_list:
-        filelist[i]=file
-        i+=1
-    a=[1,2,3]
-    return render(request,'src/view/widgets.html',{'data': file_list})
+        filelist.append(file.decode('gbk'))
+
+
+    return render(request,'src/view/widgets.html',{'data': filelist})
 
 @csrf_exempt
 @require_http_methods({'GET'})
