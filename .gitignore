@@ -1,0 +1,7 @@
+.idea/DistributedSystemFinal.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+data_files/*
+*.pyc
