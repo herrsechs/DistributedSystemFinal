@@ -18,7 +18,7 @@ def fbuffer(f, chunk_size=10000):
 
 
 def send_chunk_to_slave(slave_ip, local_path, remote_path, usr):
-    private_key = pk.RSAKey.from_private_key_file('/root/.ssh/id_rsa')
+    private_key = pk.RSAKey.from_private_key_file('/home/liuyajun/.ssh/id_rsa')
     ssh = pk.SSHClient()
     ssh.set_missing_host_key_policy(pk.AutoAddPolicy())
     ssh.connect(hostname=slave_ip, port=22, username=usr, pkey=private_key)
