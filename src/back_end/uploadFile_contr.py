@@ -1,5 +1,4 @@
 from file_trans.models import DataFile
-import p
 import os
 import datetime
 
