@@ -21,8 +21,7 @@
 
 <body>
 {% for item in data %}
-<li>{{ item }}</li>
-<li><a href="/file/download/?filename={{ item }}">下载</a> </li>
+<li><a href="/file_trans/download/?filename={{ item }}">下载</a> </li>
 {% endfor %}
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
@@ -56,13 +55,13 @@
 			</div>
 		</form>
 		<ul class="nav menu">
-			<li><a href="/file/0/"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> 主面板</a></li>
-			<li><a href="/file/show_file/"><svg class="glyph stroked blank document"><use xlink:href="#stroked-blank-document"></use></svg> 文件</a></li>
+			<li><a href="/file_trans/0/"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> 主面板</a></li>
+			<li><a href="/file_trans/show_file/"><svg class="glyph stroked blank document"><use xlink:href="#stroked-blank-document"></use></svg> 文件</a></li>
 			<!--<li><a href="charts.html"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Charts功能待定</a></li>
 			-->
-			<li><a href="/file/2/"><svg class="glyph stroked upload"><use xlink:href="#stroked-upload"></use></svg> 上传</a></li>
-			<li><a href="/file/3/"><svg class="glyph stroked stroked-download"><use xlink:href="#stroked-download"></use></svg> 下载</a></li>
-			<li><a href="/file/4/"><svg class="glyph stroked stroked-folder"><use xlink:href="#stroked-folder"></use></svg> 备份</a></li>
+			<li><a href="/file_trans/2/"><svg class="glyph stroked upload"><use xlink:href="#stroked-upload"></use></svg> 上传</a></li>
+			<li><a href="/file_trans/3/"><svg class="glyph stroked stroked-download"><use xlink:href="#stroked-download"></use></svg> 下载</a></li>
+			<li><a href="/file_trans/4/"><svg class="glyph stroked stroked-folder"><use xlink:href="#stroked-folder"></use></svg> 备份</a></li>
 			<!--<li><a href="icons.html"><svg class="glyph stroked star"><use xlink:href="#stroked-star"></use></svg> Icons</a></li>
 			<li class="parent ">-->
 				<!--a href="#">

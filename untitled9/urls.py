@@ -28,7 +28,7 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
     url(r'^$', homepage),
-    url(r'^file/',include('file.urls'))
+    url(r'^file_trans/', include('file_trans.urls'))
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=
