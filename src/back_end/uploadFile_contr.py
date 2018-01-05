@@ -2,6 +2,7 @@ from file_trans.models import DataFile
 import os
 import datetime
 import paramiko as pk
+import pickle
 
 
 def get_file(filename):
@@ -18,10 +19,13 @@ def fbuffer(f, chunk_size=10000):
 
 
 def send_chunk_to_slave(slave_ip, local_path, remote_path, usr):
-    private_key = pk.RSAKey.from_private_key_file('/home/liuyajun/.ssh/id_rsa')
+    psd_f = open('/home/liuyajun/django_server/psd.pkl', 'r')
+    psd_dict = pickle.load(psd_f)
+    psd_f.close()
+
     ssh = pk.SSHClient()
     ssh.set_missing_host_key_policy(pk.AutoAddPolicy())
-    ssh.connect(hostname=slave_ip, port=22, username=usr, pkey=private_key)
+    ssh.connect(hostname=slave_ip, port=22, username=usr, password=psd_dict[slave_ip])
 
     sftp = pk.SFTPClient.from_transport(ssh.get_transport())
     sftp.open()
