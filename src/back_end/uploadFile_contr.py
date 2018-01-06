@@ -28,7 +28,6 @@ def send_chunk_to_slave(slave_ip, local_path, remote_path, usr):
         ssh.connect(hostname=slave_ip, port=22, username=usr, password=psd_dict[slave_ip])
 
         sftp = pk.SFTPClient.from_transport(ssh.get_transport())
-        sftp.open()
         sftp.put(local_path, remote_path)
         sftp.close()
         ssh.close()
