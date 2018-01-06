@@ -3,7 +3,7 @@ import os
 import datetime
 import paramiko as pk
 import pickle
-
+from paramiko import AuthenticationException
 
 def get_file(filename):
     #f = UploadFile(filename=filename)
@@ -22,16 +22,19 @@ def send_chunk_to_slave(slave_ip, local_path, remote_path, usr):
     psd_f = open('/home/liuyajun/django_server/psd.pkl', 'r')
     psd_dict = pickle.load(psd_f)
     psd_f.close()
+    try:
+        ssh = pk.SSHClient()
+        ssh.set_missing_host_key_policy(pk.AutoAddPolicy())
+        ssh.connect(hostname=slave_ip, port=22, username=usr, password=psd_dict[slave_ip])
 
-    ssh = pk.SSHClient()
-    ssh.set_missing_host_key_policy(pk.AutoAddPolicy())
-    ssh.connect(hostname=slave_ip, port=22, username=usr, password=psd_dict[slave_ip])
-
-    sftp = pk.SFTPClient.from_transport(ssh.get_transport())
-    sftp.open()
-    sftp.put(local_path, remote_path)
-    sftp.close()
-    ssh.close()
+        sftp = pk.SFTPClient.from_transport(ssh.get_transport())
+        sftp.open()
+        sftp.put(local_path, remote_path)
+        sftp.close()
+        ssh.close()
+    except AuthenticationException:
+        print(slave_ip)
+        print(psd_dict[slave_ip])
 
 
 def map_chunk_to_slave(chunk_path, chunk_idx, chunk_number):
