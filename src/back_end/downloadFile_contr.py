@@ -52,6 +52,8 @@ def read_file(filename):
                                             remote_usrs[j])
                 if flag:
                     break
+                else:
+                    print('Cannot connect to server %s when requiring chunk %i' % (slave_ids[i], i))
             if flag:
                 filepath = 'data_files/' + filename + str(i)
                 with open(filepath, "rb") as fr:
@@ -67,6 +69,8 @@ def read_file(filename):
                                             remote_usrs[j])
                 if flag:
                     break
+                else:
+                    print('Cannot connect to server %s when requiring chunk %i' % (slave_ids[i], i))
             if flag:
                 filepath = 'data_files/' + filename + str(i)
                 with open(filepath, "rb") as fr:
