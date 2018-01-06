@@ -16,7 +16,7 @@ def get_chunk_from_slave(slave_ip, local_path, remote_path, usr):
         ssh.connect(hostname=slave_ip, port=22, username=usr, password=psd_dict[slave_ip])
 
         sftp = pk.SFTPClient.from_transport(ssh.get_transport())
-        sftp.get(local_path, remote_path)
+        sftp.get(remote_path, local_path)
         sftp.close()
         ssh.close()
     except AuthenticationException:
