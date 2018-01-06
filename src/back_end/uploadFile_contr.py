@@ -92,7 +92,7 @@ def upload_one_file(request):
 
         # Map chunk to slaves
         for i in range(chunk_idx):
-            map_chunk_to_slave(os.path.join(file_path, str(i)), i, chunk_idx)
+            map_chunk_to_slave(file_path + str(i), i, chunk_idx)
 
         message = 'The upload_file "%s" was uploaded successfully' % fi.name
 
