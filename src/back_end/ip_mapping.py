@@ -36,6 +36,8 @@ def send_chunk_to_slave(slave_ip, local_path, remote_path, usr):
         ssh.close()
     except AuthenticationException:
         print('Exception when visiting %s' % slave_ip)
+    except IOError:
+        print('IO Exception when visiting %s' % slave_ip)
 
 
 def get_chunk_from_slave(slave_ip, local_path, remote_path, usr):
@@ -53,6 +55,8 @@ def get_chunk_from_slave(slave_ip, local_path, remote_path, usr):
         ssh.close()
     except AuthenticationException:
         return False
+    except IOError:
+        print('IO Exception when visiting %s' % slave_ip)
     return True
 
 
