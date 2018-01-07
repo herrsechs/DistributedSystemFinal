@@ -34,10 +34,13 @@ def send_chunk_to_slave(slave_ip, local_path, remote_path, usr):
         sftp.put(local_path, remote_path)
         sftp.close()
         ssh.close()
+        return True
     except AuthenticationException:
         print('Exception when visiting %s' % slave_ip)
+        return False
     except IOError:
         print('IO Exception when visiting %s' % slave_ip)
+        return False
 
 
 def get_chunk_from_slave(slave_ip, local_path, remote_path, usr):
@@ -66,27 +69,32 @@ def map_chunk_to_slave(chunk_path, chunk_idx, chunk_number):
     local_ip = get_ip()
 
     if chunk_idx < slice_num * 3 and not local_ip == slave_ids[0]:
-        send_chunk_to_slave(slave_ids[0], chunk_path,
-                            os.path.join(remote_dirs[0], f_name),
-                            remote_usrs[0])
+        flag = send_chunk_to_slave(slave_ids[0], chunk_path,
+                                   os.path.join(remote_dirs[0], f_name),
+                                   remote_usrs[0])
+        if flag:
+            os.remove(chunk_path)
     if not local_ip == slave_ids[1] and \
        slice_num <= chunk_idx < slice_num * 2 or \
        slice_num * 3 <= chunk_idx < slice_num * 4:
-        send_chunk_to_slave(slave_ids[1], chunk_path,
-                            os.path.join(remote_dirs[1], f_name),
-                            remote_usrs[1])
+        flag = send_chunk_to_slave(slave_ids[1], chunk_path,
+                                   os.path.join(remote_dirs[1], f_name),
+                                   remote_usrs[1])
+        if flag:
+            os.remove(chunk_path)
     if not local_ip == slave_ids[2] and \
        slice_num * 2 <= chunk_idx < slice_num * 3 or \
        slice_num * 4 <= chunk_idx < chunk_number:
-        send_chunk_to_slave(slave_ids[2], chunk_path,
-                            os.path.join(remote_dirs[2], f_name),
-                            remote_usrs[2])
+        flag = send_chunk_to_slave(slave_ids[2], chunk_path,
+                                   os.path.join(remote_dirs[2], f_name),
+                                   remote_usrs[2])
+        if flag:
+            os.remove(chunk_path)
     if not local_ip == slave_ids[3] and \
             chunk_idx < slice_num or slice_num * 3 <= chunk_idx < chunk_number:
-        send_chunk_to_slave(slave_ids[3], chunk_path,
-                            os.path.join(remote_dirs[3], f_name),
-                            remote_usrs[3])
+        flag = send_chunk_to_slave(slave_ids[3], chunk_path,
+                                   os.path.join(remote_dirs[3], f_name),
+                                   remote_usrs[3])
+        if flag:
+            os.remove(chunk_path)
 
-    # Delete chunks not mapped to this node
-    if chunk_idx >= slice_num * 3:
-        os.remove(chunk_path)
