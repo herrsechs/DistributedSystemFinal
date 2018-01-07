@@ -7,9 +7,9 @@ import os
 slave_ids = ['10.60.45.11', '10.60.45.10', '10.60.45.19', '10.60.45.22']
 remote_usrs = ['liuyajun', 'liuyajun', 'lyj', 'jishi511']
 remote_dirs = ['/home/liuyajun/django_server/DistributedSystemFinal/data_files',
-               '/home/liuyajun/data_files/',
-               '/home/lyj/data_files/',
-               '/large_disk/lyj/data_files/']
+               '/home/liuyajun/django_server/DistributedSystemFinal/data_files/',
+               '/home/lyj/django_server/DistributedSystemFinal/data_files/',
+               '/large_disk/lyj/django_server/DistributedSystemFinal/data_files/']
 
 
 def get_ip():

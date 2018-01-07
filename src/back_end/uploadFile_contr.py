@@ -1,7 +1,7 @@
 from file_trans.models import DataFile
 import os
 import datetime
-from ip_mapping import map_chunk_to_slave
+from ip_mapping import map_chunk_to_slave, slave_ids, remote_dirs, get_ip
 
 def get_file(filename):
     #f = UploadFile(filename=filename)
@@ -17,9 +17,10 @@ def fbuffer(f, chunk_size=10000):
 
 
 def upload_one_file(request):
+    local_ip = get_ip()
     fi = request.FILES.get('file')
     if fi.name:
-        dir_path = 'data_files'
+        dir_path = remote_dirs[slave_ids.index(local_ip)]
         if not os.path.exists(dir_path):
             os.makedirs(dir_path)
         print(dir_path)
