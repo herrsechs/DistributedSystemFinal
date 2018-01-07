@@ -1,27 +1,7 @@
 from django.http import StreamingHttpResponse
 from file_trans.models import DataFile
-import pickle
-import paramiko as pk
-from paramiko import AuthenticationException
+from ip_mapping import get_chunk_from_slave
 import os
-
-
-def get_chunk_from_slave(slave_ip, local_path, remote_path, usr):
-    psd_f = open('/home/liuyajun/django_server/psd.pkl', 'r')
-    psd_dict = pickle.load(psd_f)
-    psd_f.close()
-    try:
-        ssh = pk.SSHClient()
-        ssh.set_missing_host_key_policy(pk.AutoAddPolicy())
-        ssh.connect(hostname=slave_ip, port=22, username=usr, password=psd_dict[slave_ip])
-
-        sftp = pk.SFTPClient.from_transport(ssh.get_transport())
-        sftp.get(remote_path, local_path)
-        sftp.close()
-        ssh.close()
-    except AuthenticationException:
-        return False
-    return True
 
 
 def read_file(filename):
