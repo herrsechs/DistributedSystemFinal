@@ -22,7 +22,7 @@ def get_ip():
 
 
 def send_chunk_to_slave(slave_ip, local_path, remote_path, usr):
-    psd_f = open('~/django_server/psd.pkl', 'r')
+    psd_f = open(os.path.join(os.environ['HOME'], 'django_server/psd.pkl'), 'r')
     psd_dict = pickle.load(psd_f)
     psd_f.close()
     try:
@@ -39,7 +39,7 @@ def send_chunk_to_slave(slave_ip, local_path, remote_path, usr):
 
 
 def get_chunk_from_slave(slave_ip, local_path, remote_path, usr):
-    psd_f = open('~/django_server/psd.pkl', 'r')
+    psd_f = open(os.path.join(os.environ['HOME'], 'django_server/psd.pkl'), 'r')
     psd_dict = pickle.load(psd_f)
     psd_f.close()
     try:
