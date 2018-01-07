@@ -13,7 +13,7 @@ remote_dirs = ['/home/liuyajun/django_server/DistributedSystemFinal/data_files',
 
 
 def get_ip():
-    s = socket.socket(socket.AF_INET.socket.SDK_DGRAM)
+    s = socket.socket(socket.AF_INET, socket.SDK_DGRAM)
     try:
         s.connect(('8.8.8.8', 80))
         return s.getsockname()[0]
