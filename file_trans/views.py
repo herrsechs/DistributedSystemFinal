@@ -24,7 +24,19 @@ def index(request,index):
         return render(request, "src/view/upload.html")
     if index==3:
         file_list = [obj.filename for obj in DataFile.objects.all()]
-        return render(request, 'src/view/download.html', {'data': file_list})
+        doc_list = []
+        video_list = []
+        music_list = []
+        for f in file_list:
+            suffix = f.split('.')[-1]
+            if suffix in ['mp4', 'avi', 'mkv', 'mov', 'flv']:
+                video_list.append(f)
+            elif suffix in ['mp3', 'wma', 'wav']:
+                music_list.append(f)
+            else:
+                doc_list.append(f)
+        return render(request, 'src/view/download.html',
+                      {'doc': doc_list, 'music': music_list, 'video': video_list})
     if index==4:
         file_list = [obj.filename for obj in DataFile.objects.all()]
         return render(request,'src/view/copy.html',{'data': file_list})

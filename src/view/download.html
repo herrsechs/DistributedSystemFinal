@@ -111,7 +111,7 @@
 					<div class="panel-body">
 						<form class="form-horizontal" action="" method="post">
 							<fieldset>
-                                {% for item in data %}
+                                {% for item in doc %}
                                 <li><a href="/file_trans/download/?filename={{ item }}">{{ item }}</a> </li>
                                     <br/>
                                 {% endfor %}
@@ -130,7 +130,7 @@
 					<div class="panel-body">
 						<form class="form-horizontal" action="" method="post">
 							<fieldset>
-                                {% for item in data %}
+                                {% for item in music %}
                                 <li><a href="/file_trans/download/?filename={{ item }}">{{ item }}</a> </li>
                                     <br/>
                                 {% endfor %}
@@ -149,7 +149,7 @@
 					<div class="panel-body">
 						<form class="form-horizontal" action="" method="post">
 							<fieldset>
-                                {% for item in data %}
+                                {% for item in video %}
                                 <li><a href="/file_trans/download/?filename={{ item }}">{{ item }}</a> </li>
                                     <br/>
                                 {% endfor %}
@@ -160,7 +160,7 @@
 				</div>
 			</div>
 		</div><!-- /.row -->
-		
+
 	</div>	<!--/.main-->
 
 
