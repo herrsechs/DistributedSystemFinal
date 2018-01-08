@@ -72,23 +72,23 @@ def map_chunk_to_slave(chunk_path, chunk_idx, chunk_number):
         flag = send_chunk_to_slave(slave_ids[0], chunk_path,
                                    os.path.join(remote_dirs[0], f_name),
                                    remote_usrs[0])
-    if not local_ip == slave_ids[1] and \
-       slice_num <= chunk_idx < slice_num * 2 or \
+    if slice_num <= chunk_idx < slice_num * 2 or \
        slice_num * 3 <= chunk_idx < slice_num * 4:
-        flag = send_chunk_to_slave(slave_ids[1], chunk_path,
-                                   os.path.join(remote_dirs[1], f_name),
-                                   remote_usrs[1])
-    if not local_ip == slave_ids[2] and \
-       slice_num * 2 <= chunk_idx < slice_num * 3 or \
+        if not local_ip == slave_ids[1]:
+            flag = send_chunk_to_slave(slave_ids[1], chunk_path,
+                                       os.path.join(remote_dirs[1], f_name),
+                                       remote_usrs[1])
+    if slice_num * 2 <= chunk_idx < slice_num * 3 or \
        slice_num * 4 <= chunk_idx < chunk_number:
-        flag = send_chunk_to_slave(slave_ids[2], chunk_path,
-                                   os.path.join(remote_dirs[2], f_name),
-                                   remote_usrs[2])
-    if not local_ip == slave_ids[3] and \
-            chunk_idx < slice_num or slice_num * 3 <= chunk_idx < chunk_number:
-        flag = send_chunk_to_slave(slave_ids[3], chunk_path,
-                                   os.path.join(remote_dirs[3], f_name),
-                                   remote_usrs[3])
+        if not local_ip == slave_ids[2]:
+            flag = send_chunk_to_slave(slave_ids[2], chunk_path,
+                                       os.path.join(remote_dirs[2], f_name),
+                                       remote_usrs[2])
+    if chunk_idx < slice_num or slice_num * 3 <= chunk_idx < chunk_number:
+        if not local_ip == slave_ids[3]:
+            flag = send_chunk_to_slave(slave_ids[3], chunk_path,
+                                       os.path.join(remote_dirs[3], f_name),
+                                       remote_usrs[3])
 
     slave_chunk_range = [[(0, 3 * slice_num)],
                          [(slice_num, 2 * slice_num), (slice_num * 3, slice_num * 4)],
