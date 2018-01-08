@@ -19,7 +19,7 @@ def index(request,index):
     if index==0:
         return render(request,'src/view/index.html')
     if index==1:
-        return render(request,'src/view/widgets.html')
+        return render(request,'src/view/show_file.html')
     if index==2:
         return render(request, "src/view/forms.html")
     if index==3:
@@ -44,7 +44,7 @@ def upload(request):
 @require_http_methods({'GET'})
 def show_file(request):
     file_list = [obj.filename for obj in DataFile.objects.all()]
-    return render(request,'src/view/widgets.html',{'data': file_list})
+    return render(request,'src/view/show_file.html',{'data': file_list})
 
 @csrf_exempt
 @require_http_methods({'GET'})
