@@ -72,29 +72,33 @@ def map_chunk_to_slave(chunk_path, chunk_idx, chunk_number):
         flag = send_chunk_to_slave(slave_ids[0], chunk_path,
                                    os.path.join(remote_dirs[0], f_name),
                                    remote_usrs[0])
-        if flag:
-            os.remove(chunk_path)
     if not local_ip == slave_ids[1] and \
        slice_num <= chunk_idx < slice_num * 2 or \
        slice_num * 3 <= chunk_idx < slice_num * 4:
         flag = send_chunk_to_slave(slave_ids[1], chunk_path,
                                    os.path.join(remote_dirs[1], f_name),
                                    remote_usrs[1])
-        if flag:
-            os.remove(chunk_path)
     if not local_ip == slave_ids[2] and \
        slice_num * 2 <= chunk_idx < slice_num * 3 or \
        slice_num * 4 <= chunk_idx < chunk_number:
         flag = send_chunk_to_slave(slave_ids[2], chunk_path,
                                    os.path.join(remote_dirs[2], f_name),
                                    remote_usrs[2])
-        if flag:
-            os.remove(chunk_path)
     if not local_ip == slave_ids[3] and \
             chunk_idx < slice_num or slice_num * 3 <= chunk_idx < chunk_number:
         flag = send_chunk_to_slave(slave_ids[3], chunk_path,
                                    os.path.join(remote_dirs[3], f_name),
                                    remote_usrs[3])
-        if flag:
-            os.remove(chunk_path)
 
+    slave_chunk_range = [[(0, 3 * slice_num)],
+                         [(slice_num, 2 * slice_num), (slice_num * 3, slice_num * 4)],
+                         [(slice_num * 2, slice_num * 3), (slice_num * 4, chunk_number)],
+                         [(0, slice_num), (slice_num * 3, chunk_number)]]
+
+    local_range = slave_chunk_range[slave_ids.index(local_ip)]
+    local_flag = False
+    for rng in local_range:
+        if rng[0] <= chunk_idx < rng[1]:
+            local_flag = True
+    if not local_flag:
+        os.remove(chunk_path)
