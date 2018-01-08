@@ -21,13 +21,13 @@ def index(request,index):
     if index==1:
         return render(request,'src/view/show_file.html')
     if index==2:
-        return render(request, "src/view/forms.html")
+        return render(request, "src/view/upload.html")
     if index==3:
         file_list = [obj.filename for obj in DataFile.objects.all()]
         return render(request, 'src/view/download.html', {'data': file_list})
     if index==4:
         file_list = [obj.filename for obj in DataFile.objects.all()]
-        return render(request,'src/view/tables.html',{'data': file_list})
+        return render(request,'src/view/copy.html',{'data': file_list})
     if index==5:
         return render((request,'src/view/login.html'))
 
@@ -37,7 +37,7 @@ def index(request,index):
 def upload(request):
 
     message=upload_one_file(request)
-    return render(request,"src/view/forms.html")
+    return render(request,"src/view/upload.html")
 
 
 @csrf_exempt
