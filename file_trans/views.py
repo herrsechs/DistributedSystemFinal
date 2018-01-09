@@ -66,3 +66,14 @@ def download_file(request):
 
     return response
 
+
+@csrf_exempt
+@require_http_methods({'POST'})
+def update_file(request):
+    pass
+
+
+@csrf_exempt
+@require_http_methods({'POST'})
+def delete_file(request):
+    pass
