@@ -158,6 +158,8 @@ def delete_chunk_from_slave(file_name):
         ip_idx = slave_ids.index(ip)
         file_path = os.path.join(remote_dirs[ip_idx], file_name + '*')
         if ip == local_ip:
-            os.remove(file_path)
+            for f in os.listdir(remote_dirs[ip_idx]):
+                if file_name in f:
+                    os.remove(os.path.join(remote_dirs[ip_idx], f))
             continue
         ssh_exec_cmd(ip, file_path)
