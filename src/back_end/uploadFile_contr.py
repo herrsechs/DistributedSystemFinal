@@ -1,11 +1,12 @@
 from file_trans.models import DataFile
 import os
 import datetime
-from ip_mapping import map_chunk_to_slave, slave_ids, remote_dirs, get_ip
+from ip_mapping import map_chunk_to_slave, slave_ids, remote_dirs, get_ip, delete_chunk_from_slave
+
 
 def get_file(filename):
-    #f = UploadFile(filename=filename)
-    #return f
+    # f = UploadFile(filename=filename)
+    # return f
     pass
 
 
@@ -14,6 +15,17 @@ def fbuffer(f, chunk_size=10000):
         chunk = f.read(chunk_size)
         if not chunk: break
         yield chunk
+
+
+def delete_one_file(request):
+    filename = request.GET.get('filename')
+    delete_chunk_from_slave(filename)
+    DataFile.objects.filter(filename=filename).delete()
+
+
+def show():
+    filelist = [obj.filename for obj in DataFile.objects.all()]
+    return filelist
 
 
 def upload_one_file(request):
@@ -51,3 +63,8 @@ def upload_one_file(request):
         message = 'No upload_file was uploaded'
 
     return message
+
+
+def update_one_file(request):
+    delete_one_file(request)
+    upload_one_file(request)

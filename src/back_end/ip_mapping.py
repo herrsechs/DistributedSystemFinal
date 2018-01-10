@@ -102,3 +102,62 @@ def map_chunk_to_slave(chunk_path, chunk_idx, chunk_number):
             local_flag = True
     if not local_flag:
         os.remove(chunk_path)
+
+
+def map_chunk_to_slave_ip(chunk_idx, chunk_number):
+    """
+    Return slave ip according to chunk idx
+    :param chunk_idx: chunk index
+    :param chunk_number: total number of chunks
+    :return: slave ip
+    """
+    slice_num = chunk_number / 5
+    slave_chunk_range = [[(0, 3 * slice_num)],
+                         [(slice_num, 2 * slice_num), (slice_num * 3, slice_num * 4)],
+                         [(slice_num * 2, slice_num * 3), (slice_num * 4, chunk_number)],
+                         [(0, slice_num), (slice_num * 3, chunk_number)]]
+
+    hit_flag = False
+    res = ''
+    for i in range(len(slave_chunk_range)):
+        slave_rngs = slave_chunk_range[i]
+        for rng in slave_rngs:
+            if rng[0] <= chunk_idx < rng[1]:
+                res = slave_ids[i]
+                hit_flag = True
+                break
+        if hit_flag:
+            break
+    return res
+
+
+def ssh_exec_cmd(ip, cmd_line):
+    ip_idx = slave_ids.index(ip)
+    psd_f = open(os.path.join(os.environ['HOME'], 'django_server/psd.pkl'), 'r')
+    psd_dict = pickle.load(psd_f)
+    psd_f.close()
+    try:
+        ssh = pk.SSHClient()
+        ssh.set_missing_host_key_policy(pk.AutoAddPolicy())
+        ssh.connect(hostname=ip, port=22, username=remote_usrs[ip_idx], password=psd_dict[ip])
+        ssh.exec_command(cmd_line)
+        ssh.close()
+    except AuthenticationException:
+        print('Authentication Exception when visiting %s' % ip)
+        return False
+    except IOError:
+        print('IO Exception when visiting %s' % ip)
+        return False
+    return True
+
+
+def delete_chunk_from_slave(file_name):
+    local_ip = get_ip()
+
+    for ip in slave_ids:
+        ip_idx = slave_ids.index(ip)
+        file_path = os.path.join(remote_dirs[ip_idx], file_name + '*')
+        if ip == local_ip:
+            os.remove(file_path)
+            continue
+        ssh_exec_cmd(ip, file_path)
