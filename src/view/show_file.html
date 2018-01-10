@@ -221,14 +221,18 @@
         $(document).ready(function() {
 		    $(".update").click(function (e) {
 		        document.getElementById("file").click();
-		        filename=$(e.target).attr('name')
-		        $("form[id='file_submit']").attr('action','/file_trans/update/?filename='+filename);
-                if(confirm('确认提交')){
-		            $("form[id='file_submit']").submit();
+		        if($("#file").val() != "") {
+		            if(confirm('确认更新?')){
+                        filename=$(e.target).attr('name');
+                        $("form[id='file_submit']").attr('action','/file_trans/update/?filename='+filename);
+                        $("form[id='file_submit']").submit();
+                    }
+		        }else {
+		            $("#file").val("");
 		        }
             });
 		    $(".delete").click(function (e) {
-				if(confirm('确认删除吗')){
+				if(confirm('确认删除?')){
 				    filename=$(e.target).attr('id');
 				    $("form[id='file_submit']").attr('action','/file_trans/delete/?filename='+filename);
 				    $("form[id='file_submit']").submit();
