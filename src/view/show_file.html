@@ -15,6 +15,25 @@
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+		    $(".update").click(function (e) {
+		        document.getElementById("file").click();
+		        filename=$(e.target).attr('name')
+		        $("form[id='file_submit']").attr('action','/file/update/?filename='+filename);
+
+		        $("form[id='file_submit']").submit();
+
+            });
+		    $(".delete").click(function (e) {
+				if(confirm('确认删除吗')){
+				    filename=$(e.target).attr('id');
+				    $("form[id='file_submit']").attr('action','/file/delete/?filename='+filename);
+				    $("form[id='file_submit']").submit();
+				}
+            })
+        });
+    </script>
     <![endif]-->
 
 </head>
@@ -171,18 +190,19 @@
                     文件列表
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" action="file_trans/update_file/" method="post">
-                        <input type="file" id="file_submit" name="file" style="display: none"/>
+                    <form enctype="multipart/form-data" id="file_submit"
+                          class="form-horizontal" action="" method="post">
+                        <input type="file" id="file" name="file" style="display: none"/>
                         {% for item in data %}
-                        <div>
+                        <div style="{width:1024px}">
                             <li>
                                 <span id="{{ item }}">{{ item }}</span>
                                 <span class="delete" id="{{item}}">删除</span>
                                 <span class="update" name="{{item}}">更新</span>
                             </li>
                         </div>
+
                         {% endfor %}
-                        </fieldset>
                     </form>
                 </div>
             </div>
@@ -215,24 +235,7 @@
 		$(window).on('resize', function () {
 		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
 		})
-        $(document).ready(function() {
-		    $(".update").click(function (e) {
-		        document.getElementById("file").click();
-		        filename=$(e.target).attr('name')
-		        $("form[id='file_submit']").attr('action','/file/update/?filename='+filename);
 
-		        $("form[id='file_submit']").submit();
-
-            });
-		    $(".delete").click(function (e) {
-				if(confirm('确认删除吗')){
-				    filename=$(e.target).attr('id');
-				    $("form[id='file_submit']").attr('action','/file/delete/?filename='+filename);
-				    $("form[id='file_submit']").submit();
-
-				}
-            })
-        });
 
     </script>
 </body>
