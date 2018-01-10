@@ -83,4 +83,4 @@ def delete_file(request):
     print(filename)
     delete_one_file(request)
     filelist = show()
-    return render(request, 'src/view/widgets.html', {'data': filelist})
+    return render(request, 'src/view/show_file.html', {'data': filelist})
