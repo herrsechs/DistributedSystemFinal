@@ -223,9 +223,9 @@
 		        document.getElementById("file").click();
 		        filename=$(e.target).attr('name')
 		        $("form[id='file_submit']").attr('action','/file_trans/update/?filename='+filename);
-
-		        $("form[id='file_submit']").submit();
-
+                if(confirm('确认提交')){
+		            $("form[id='file_submit']").submit();
+		        }
             });
 		    $(".delete").click(function (e) {
 				if(confirm('确认删除吗')){
