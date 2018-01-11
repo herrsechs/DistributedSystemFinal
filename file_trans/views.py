@@ -84,3 +84,15 @@ def delete_file(request):
     delete_one_file(request)
     filelist = show()
     return render(request, 'src/view/show_file.html', {'data': filelist})
+
+
+@csrf_exempt
+@require_http_methods({'POST'})
+def show_charts(request, index):
+    index = int(index)
+    if index == 0:
+        return render(request, 'src/view/answer1.html')
+    if index == 1:
+        return render(request, 'src/view/answer2.html')
+    if index == 2:
+        return render(request, 'src/view/answer3.html')
