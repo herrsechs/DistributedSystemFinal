@@ -42,7 +42,7 @@ def index(request, index):
         file_list = [obj.filename for obj in DataFile.objects.all()]
         return render(request, 'src/view/copy.html', {'data': file_list})
     if index == 5:
-        return render((request, 'src/view/login.html'))
+        return render((request, 'src/view/charts.html'))
 
 
 @csrf_exempt
