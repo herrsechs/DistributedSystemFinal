@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>被叫号码各运营商占比图</title>
+    <!-- 引入 echarts.js -->
+    <script src="echarts.js"></script>
+    <style>
+        #num1{
+            position: absolute;
+            width:33%;
+        }
+        #num2{
+            position: absolute;
+            padding-left: 33%;
+            width:33%;
+        }
+        #num3{
+            padding-left: 66%;
+            width:33%;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="num1" class="col-xs-4">
+        <h3>被叫号码市话各运营商占比图</h3>
+        <div id="bzt1" style="width: 500px;height: 400px;"></div>
+        <script type="text/javascript">
+            var bzt1 = echarts.init(document.getElementById("bzt1"));
+            bzt1.setOption({
+                title:{
+                        text:""
+                    },
+                
+                itemStyle:{
+                    emphasis:{
+                        shadowBlur:200,
+                        shadowColor:"rgba(0,0,0,0.8)"
+                    }
+                },
+                series:[
+                        {
+                            name: '被叫号码市话各运营商占比图',
+                            type: 'pie',
+                            radius: '55%',
+                            data:[
+                                {value:0.39, name:'电信 39%'},
+                                {value:0.53, name:'移动 53%'},
+                                {value:0.08, name:'联通 8%'}
+                            ]
+                        }
+                    ]
+            });
+        </script>
+    </div>
+
+<div id="num2" class="col-xs-4">
+        <h3>被叫号码长途各运营商占比图</h3>
+        <div id="bzt2" style="width: 500px;height: 400px;"></div>
+        <script type="text/javascript">
+            var bzt2 = echarts.init(document.getElementById("bzt2"));
+            bzt2.setOption({
+                title:{
+                        text:""
+                    },
+                itemStyle:{
+                    emphasis:{
+                        shadowBlur:200,
+                        shadowColor:"rgba(0,0,0,0.8)"
+                    }
+                },
+                series:[
+                        {
+                            name: '被叫号码长途各运营商占比图',
+                            type: 'pie',
+                            radius: '55%',
+                            data:[
+                                {value:0.27, name:'电信 27%'},
+                                {value:0.61, name:'移动 61%'},
+                                {value:0.12, name:'联通 12%'}
+                            ]
+                        }
+                    ]       
+            });
+        </script>
+    </div>
+
+<div id="num3" class="col-xs-4">
+    
+        <h3>被叫号码漫游各运营商占比图</h3>
+        <div id="bzt3" style="width: 500px;height: 400px;"></div>
+        <script type="text/javascript">
+            var bzt3 = echarts.init(document.getElementById("bzt3"));
+            bzt3.setOption({
+                title:{
+                        text:""
+                    },
+                itemStyle:{
+                    emphasis:{
+                        shadowBlur:200,
+                        shadowColor:"rgba(0,0,0,0.8)"
+                    }
+                },
+                series:[
+                        {
+                            name: '被叫号码漫游各运营商占比图',
+                            type: 'pie',
+                            radius: '55%',
+                            data:[
+                                {value:0.17, name:'电信 17%'},
+                                {value:0.69, name:'移动 69%'},
+                                {value:0.14, name:'联通 14%'}
+                            ]
+                        }
+                    ]       
+            });
+        </script>
+    </div>
+
+</body>
+</html>
