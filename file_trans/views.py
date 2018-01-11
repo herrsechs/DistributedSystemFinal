@@ -87,7 +87,7 @@ def delete_file(request):
 
 
 @csrf_exempt
-@require_http_methods({'POST'})
+@require_http_methods({'GET'})
 def show_charts(request, index):
     index = int(index)
     if index == 0:
